@@ -34,7 +34,7 @@
 
              <el-col v-if="imgList" style="text-align: center">
                  <el-col  v-if="data.length">
-                     <el-col  v-for="(o,index) in data"  style="padding: 15px;width: 220px;">
+                     <el-col  v-for="(o,index) in data"  style="padding: 15px;width: 220px;" :key="index">
                          <router-link :to="{name: 'tableCont',params:{userId:index,name:o.name}}">
                              <el-card :body-style="{ padding: '0px' }">
                                  <img :src="o.img" class="image">
@@ -53,7 +53,7 @@
              </el-col>
              <el-col v-else class="box-card">
                  <el-col  v-if="data.length">
-                     <el-col class="text item" v-for="(o,index) in data">
+                     <el-col class="text item" v-for="(o,index) in data" :key="index">
                          <el-col :span="5"><img :src="o.img" alt=""></el-col>
                          <el-col :span="12">
                              <div class="title">
@@ -87,123 +87,170 @@
 </template>
 
 <style scoped>
-    @import "../../assets/icon/iconfont.css";
-    .text {
-        font-size: 14px;
-    }
-    .item {
-        padding: 18px 0;
-        border-bottom: 1px dashed #cccccc;
-    }
-    .box-card {
-        width: 856px;
-    }
-    .time {
-        font-size: 13px;
-        color: #999;
-    }
-    .bottom {
-        margin-top: 13px;
-        line-height: 12px;
-    }
-    .button {
-        padding: 0;
-        float: right;
-    }
+@import "../../assets/icon/iconfont.css";
+.text {
+  font-size: 14px;
+}
+.item {
+  padding: 18px 0;
+  border-bottom: 1px dashed #cccccc;
+}
+.box-card {
+  width: 856px;
+}
+.time {
+  font-size: 13px;
+  color: #999;
+}
+.bottom {
+  margin-top: 13px;
+  line-height: 12px;
+}
+.button {
+  padding: 0;
+  float: right;
+}
 
-    .image {
-        width: 100%;
-        display: block;
-    }
+.image {
+  width: 100%;
+  display: block;
+}
 
-    .clearfix:before,
-    .clearfix:after {
-        display: table;
-        content: "";
-    }
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  content: "";
+}
 
-    .clearfix:after {
-        clear: both
-    }
-    .title{
-        margin: 10px 0 0 0;
-        font-size: 16px;
-        color: #7e6696;
-    }
-    .main{
-        text-align: left;
-        font-size: 14px;
-        color: #999999;
-        margin: 25px 0 0 0;
-    }
-    .describe{margin: 18px 0 0 0;color: #999999;}
-    .show-detail{
-        text-align: right;
-        line-height: 140px;
-    }
-
+.clearfix:after {
+  clear: both;
+}
+.title {
+  margin: 10px 0 0 0;
+  font-size: 16px;
+  color: #7e6696;
+}
+.main {
+  text-align: left;
+  font-size: 14px;
+  color: #999999;
+  margin: 25px 0 0 0;
+}
+.describe {
+  margin: 18px 0 0 0;
+  color: #999999;
+}
+.show-detail {
+  text-align: right;
+  line-height: 140px;
+}
 </style>
 
 <script>
-
-    export default {
-        data() {
-            return {
-                currentDate: new Date(),
-                dataArr:[
-                    {name:'旅游保险网数据',time:'数据更新于2小时前',img:require('../../assets/images/log1.png')},
-                    {name:'卫生健康保险网数据',time:'数据更新于2小时前',img:require('../../assets/images/log2.png')},
-                    {name:'教育保险网数据',time:'数据更新于2小时前',img:require('../../assets/images/log3.png')},
-                    {name:'安全生产保险网数据',time:'数据更新于2小时前',img:require('../../assets/images/log4.png')},
-                    {name:'国内各省市天气据',time:'数据更新于2小时前',img:require('../../assets/images/log5.png')},
-                    {name:'微博句法树库',time:'数据更新于2小时前',img:require('../../assets/images/log6.png')},
-                    {name:'微信表情数据',time:'数据更新于2小时前',img:require('../../assets/images/log7.png')},
-                    {name:'公共场所视频数据',time:'数据更新于2小时前',img:require('../../assets/images/log8.png')},
-                    {name:'安全生产保险网数据',time:'数据更新于2小时前',img:require('../../assets/images/log4.png')},
-                    {name:'国内各省市天气据',time:'数据更新于2小时前',img:require('../../assets/images/log5.png')},
-                    {name:'微博句法树库',time:'数据更新于2小时前',img:require('../../assets/images/log6.png')},
-                    {name:'微信表情数据',time:'数据更新于2小时前',img:require('../../assets/images/log7.png')},
-                    {name:'公共场所视频数据',time:'数据更新于2小时前',img:require('../../assets/images/log8.png')}
-                ],
-                select_list:'',
-                imgList:true,
-                el_icon_erp:'el-icon-erp',
-                icon_zhankai1:'icon-zhankai1',
-                icon_zhankai:'icon-zhankai',
-                activeName:'all'
-
-            };
+export default {
+  data() {
+    return {
+      currentDate: new Date(),
+      dataArr: [
+        {
+          name: "旅游保险网数据",
+          time: "数据更新于2小时前",
+          img: require("../../assets/images/log1.png")
         },
-        computed:{
-            data(){
-                const self = this;
-                return self.dataArr.filter(function(d){
-
-                        if(self.activeName==='all'){
-                            if(d.name.indexOf(self.select_list) > -1
-                            ){
-                                return  d;
-                            }
-                        }else {
-                            if(d.name.indexOf(self.select_list) > -1&&d.name.indexOf(self.activeName) > -1
-                            ){
-                                return  d;
-                            }
-                        }
-
-
-
-                })
-                //进行筛选并截取分页
-            }
+        {
+          name: "卫生健康保险网数据",
+          time: "数据更新于2小时前",
+          img: require("../../assets/images/log2.png")
         },
-        methods:{
-            add(){
-
-            },
-            changeList(){
-                this.imgList = !this.imgList;
-            }
+        {
+          name: "教育保险网数据",
+          time: "数据更新于2小时前",
+          img: require("../../assets/images/log3.png")
+        },
+        {
+          name: "安全生产保险网数据",
+          time: "数据更新于2小时前",
+          img: require("../../assets/images/log4.png")
+        },
+        {
+          name: "国内各省市天气据",
+          time: "数据更新于2小时前",
+          img: require("../../assets/images/log5.png")
+        },
+        {
+          name: "微博句法树库",
+          time: "数据更新于2小时前",
+          img: require("../../assets/images/log6.png")
+        },
+        {
+          name: "微信表情数据",
+          time: "数据更新于2小时前",
+          img: require("../../assets/images/log7.png")
+        },
+        {
+          name: "公共场所视频数据",
+          time: "数据更新于2小时前",
+          img: require("../../assets/images/log8.png")
+        },
+        {
+          name: "安全生产保险网数据",
+          time: "数据更新于2小时前",
+          img: require("../../assets/images/log4.png")
+        },
+        {
+          name: "国内各省市天气据",
+          time: "数据更新于2小时前",
+          img: require("../../assets/images/log5.png")
+        },
+        {
+          name: "微博句法树库",
+          time: "数据更新于2小时前",
+          img: require("../../assets/images/log6.png")
+        },
+        {
+          name: "微信表情数据",
+          time: "数据更新于2小时前",
+          img: require("../../assets/images/log7.png")
+        },
+        {
+          name: "公共场所视频数据",
+          time: "数据更新于2小时前",
+          img: require("../../assets/images/log8.png")
         }
+      ],
+      select_list: "",
+      imgList: true,
+      el_icon_erp: "el-icon-erp",
+      icon_zhankai1: "icon-zhankai1",
+      icon_zhankai: "icon-zhankai",
+      activeName: "all"
+    };
+  },
+  computed: {
+    data() {
+      const self = this;
+      return self.dataArr.filter(function(d) {
+        if (self.activeName === "all") {
+          if (d.name.indexOf(self.select_list) > -1) {
+            return d;
+          }
+        } else {
+          if (
+            d.name.indexOf(self.select_list) > -1 &&
+            d.name.indexOf(self.activeName) > -1
+          ) {
+            return d;
+          }
+        }
+      });
+      //进行筛选并截取分页
     }
+  },
+  methods: {
+    add() {},
+    changeList() {
+      this.imgList = !this.imgList;
+    }
+  }
+};
 </script>

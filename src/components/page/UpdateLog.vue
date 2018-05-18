@@ -7,11 +7,11 @@
             </el-breadcrumb>
         </div>
         <el-col :span="24">
-            <el-card v-for="o in logData" class="card-box">
+            <el-card v-for="(o,index) in logData" class="card-box" :key="index">
                 <div slot="header" class="clearfix">
                     <span>{{o.name}}</span>
                 </div>
-                <div v-for="o in o.warningDetail" class="text item">
+                <div v-for="(o,index) in o.warningDetail" class="text item" :key="index">
                     {{o}}
                 </div>
             </el-card>

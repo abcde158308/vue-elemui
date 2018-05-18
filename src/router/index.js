@@ -1,3 +1,4 @@
+/*jshint esversion: 6 */
 import Vue from 'vue';
 import Router from 'vue-router';
 
@@ -64,8 +65,7 @@ Vue.use(Router);
                 {
                     path: '/carousel',
                     component: resolve => require(['../components/page/Carousel.vue'], resolve)    // 拖拽列表组件
-                }
-                ,
+                },
                 {
                     path: '/card',
                     meta: { requiresAuth: true },
@@ -103,7 +103,7 @@ Vue.use(Router);
             path: '/login',
             component: resolve => require(['../components/page/Login.vue'], resolve)
         },
-    ]
+    ];
 
 
 
@@ -123,7 +123,7 @@ router.beforeEach((to, from, next) => {
             next({
                 path: '/login',
                 query: {redirect: to.fullPath}  // 将跳转的路由path作为参数，登录成功后跳转到该路由
-            })
+            });
         }
     }
     else {

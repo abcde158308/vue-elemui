@@ -1,5 +1,14 @@
 <template>
     <div>
+        <div class="red">red</div>
+
+        <div>{{this.$store.getters.a}}</div>
+        <div>{{a}}</div>
+        <div>{{b}}</div>
+        <button @click="changeState(5)">点击change</button>
+        <button @click="goAjax">ajax</button>
+        
+        
         <el-row>
             <el-button>默认按钮</el-button>
             <el-button type="primary">主要按钮</el-button>
@@ -81,6 +90,7 @@
             <el-button size="small" round>小型按钮</el-button>
             <el-button size="mini" round>超小按钮</el-button>
         </el-row>
+        
     </div>
 
 
@@ -89,6 +99,7 @@
 
 
 <script>
+import {mapGetters,mapMutations} from 'vuex';
     export default {
         data() {
             return {
@@ -110,11 +121,39 @@
                 }],
                 value: ''
             }
-        }
+        },
+        methods:{
+        
+            ...mapMutations([
+                'changeState'
+            ]),
+            goAjax(){
+                
+            }
+        },
+        computed: {
+            ...mapGetters(['a']),
+            b:() => 2
+                
+    
+
+        },
+        created () {
+            this.$post(this.$apiUrl.a).then((res) => {
+                    console.log(res);
+                })
+        }  
+    
     }
 </script>
 
-<style>
+<style lang="stylus" type="text/stylus">
+    @import "~styles/variables.styl";
+    @import "~styles/mixins.styl";
+    .red
+        background:$background
+        font()
+
     .el-row{
         margin-bottom: 20px;;
     }
